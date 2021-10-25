@@ -7,7 +7,7 @@
     * [**HW2**](./../HW2/README.md)
     * **HW3**
     * [**HW4**](./../HW4/README.md)
-    * HW5 (not implemented)
+    * [**HW5**](./../HW5/README.md)
 * Практические задания
     * [**CW1**](./../CW1/README.md)
 
