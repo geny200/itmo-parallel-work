@@ -1,0 +1,80 @@
+name: cw1
+version: 0.1.0.0
+github: "geny200/itmo-parallel-work/cw1"
+license: BSD3
+author: "Geny200"
+copyright: "2021 Geny200"
+
+extra-source-files:
+  - README.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/geny200/itmo-parallel-work/cw1#readme>
+
+dependencies:
+  - base >= 4.7 && < 5
+  - parallel
+  - array
+  - vector
+  - mtl
+library:
+  source-dirs: src
+
+executables:
+  cw1-exe:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - cw1
+
+tests:
+  cw1-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - cw1
+      - HUnit
+      - split
+      - QuickCheck
+      - hspec
+      - async
+
+benchmarks:
+  line-cw1-bench:
+    main: BenchMain.hs
+    source-dirs: benchline
+    ghc-options:
+      - -O2
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N1
+    dependencies:
+      - cw1
+      - criterion
+      - random
+  par-cw1-bench:
+    main: BenchMain.hs
+    source-dirs: benchpar
+    ghc-options:
+      - -O2
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N4
+    dependencies:
+      - cw1
+      - criterion
+      - random
