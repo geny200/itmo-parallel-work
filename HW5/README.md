@@ -10,6 +10,7 @@
     * **HW5**
     * [**HW6**](./../HW6/README.md)
     * [**HW7**](./../HW7/README.md)
+    * [**HW8**](./../HW8/README.md)
 * Практические задания
     * [**CW1**](./../CW1/README.md)
 
