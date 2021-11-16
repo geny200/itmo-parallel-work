@@ -85,8 +85,11 @@ def reserve(i):
 
 
 def commit(i):
-    if R[v].isReserved(i) and R[u].isReserved(i):
+    if R[v].isReserved(i):
         union(v, u)
+        return 1
+    elif R[u].isReserved(i):
+        union(u, v)
         return 1
     return 0
 ```
