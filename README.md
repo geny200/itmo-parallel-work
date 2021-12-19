@@ -14,3 +14,4 @@
     * [**HW9**](./HW9/README.md)
 * Практические задания
     * [**CW1**](./CW1/README.md)
+    * [**CW2**](./CW2/README.md)
