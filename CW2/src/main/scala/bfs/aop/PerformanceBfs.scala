@@ -9,7 +9,7 @@ trait PerformanceBfs extends Bfs {
   abstract override def start(
       first: grpah.VertexId,
       graph: Graph,
-      f: Vertex => Unit
+      f: Int => Vertex => Unit
   ): Unit = {
     val t0 = System.nanoTime()
     super.start(first, graph, f)

@@ -10,9 +10,14 @@ trait BfsBehaviors {
 
   def validBfs(testedBfs: => Bfs): Unit = {
     trait TestBfs {
-      val bfs: Bfs                = testedBfs
-      val visit: mutable.Set[Int] = mutable.Set()
-      val f: Vertex => Unit       = (v: Vertex) => visit.add(v.id.id) shouldBe true
+      val bfs: Bfs                       = testedBfs
+      val visit: mutable.Set[Int]        = mutable.Set()
+      val lengths: mutable.Map[Int, Int] = mutable.Map()
+      val f: Int => Vertex => Unit = (length: Int) =>
+        (v: Vertex) => {
+          visit.add(v.id.id) shouldBe true
+          lengths.update(v.id.id, length)
+        }
 
       def testWithGraphCubeN(sideLength: Int): Unit = {
         val graph: MapGraph = CubeMapGraph.graph(sideLength)
@@ -20,6 +25,7 @@ trait BfsBehaviors {
 
         bfs.start(VertexId(0), graph, f)
 
+        lengths.get(graphSize - 1) shouldBe Some(sideLength - 1)
         visit.diff((0 until graphSize).toSet) shouldBe Set()
         (0 until graphSize).toSet.diff(visit) shouldBe Set()
       }
@@ -30,7 +36,7 @@ trait BfsBehaviors {
     }
 
     it should "correctly evaluate GraphCUbe with side 5" in new TestBfs {
-      testWithGraphCubeN(5)
+      testWithGraphCubeN(6)
     }
   }
 }

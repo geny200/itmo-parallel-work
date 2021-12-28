@@ -7,7 +7,7 @@ trait LoggerBfs extends Bfs {
   abstract override def start(
       first: grpah.VertexId,
       graph: Graph,
-      f: Vertex => Unit
+      f: Int => Vertex => Unit
   ): Unit = {
     println("Run bfs")
     val result: Unit = super.start(first, graph, f)

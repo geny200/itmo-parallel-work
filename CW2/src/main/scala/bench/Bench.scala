@@ -14,7 +14,7 @@ trait Bench {
     val runner = bfs
 
     (1 to runTimes)
-      .foreach(_ => runner.start(VertexId(0), cube, { _ => }))
+      .foreach(_ => runner.start(VertexId(0), cube, { _ => _ => }))
 
     println(
       s"$name: run ${runner.count} times; total - ${runner
