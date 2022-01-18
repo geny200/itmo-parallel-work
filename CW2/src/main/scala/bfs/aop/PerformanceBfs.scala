@@ -1,15 +1,15 @@
 package bfs.aop
 
-import bfs.Bfs
-import grpah.{Graph, Vertex}
+import bfs.BfsRun
+import graph.{Graph, VertexId}
 
-trait PerformanceBfs extends Bfs {
+trait PerformanceBfs extends BfsRun {
   private var total: Seq[Long] = Seq()
 
   abstract override def start(
-      first: grpah.VertexId,
+      first: VertexId,
       graph: Graph,
-      f: Int => Vertex => Unit
+      f: Int => VertexId => Unit
   ): Unit = {
     val t0 = System.nanoTime()
     super.start(first, graph, f)

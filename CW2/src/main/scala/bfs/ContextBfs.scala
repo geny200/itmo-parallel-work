@@ -1,15 +1,19 @@
 package bfs
 
-import bfs.context.Context
-import grpah.{Graph, Vertex}
+import bfs.iteration.BfsIteration
+import graph.{Graph, VertexId}
 
-trait ContextBfs extends Bfs {
-  def context(graph: Graph, f: Int => Vertex => Unit): Context
+trait ContextBfs extends BfsRun {
+  def context(graph: Graph, f: Int => VertexId => Unit): BfsIteration
 
   override def start(
-      first: grpah.VertexId,
+      first: VertexId,
       graph: Graph,
-      f: Int => Vertex => Unit
+      f: Int => VertexId => Unit
   ): Unit =
-    context(graph, f).iteration(Set(), Seq(first), 0)
+    context(graph, f).iteration(
+      ((0 until graph.size).map(_ => false)).toVector.updated(0, true),
+      List(first),
+      0
+    )
 }

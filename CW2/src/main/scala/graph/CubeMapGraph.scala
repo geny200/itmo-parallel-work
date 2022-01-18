@@ -1,4 +1,4 @@
-package grpah
+package graph
 
 object CubeMapGraph {
   private def unsafeIndex(sideLength: Int)(x: Int, y: Int, z: Int): VertexId =

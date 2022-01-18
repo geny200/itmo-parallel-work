@@ -1,9 +1,9 @@
 package bfs
 
-import bfs.context.{Context, SeqContext}
-import grpah.{Graph, Vertex}
+import bfs.iteration.{BfsIteration, SeqBfsIteration}
+import graph.{Graph, VertexId}
 
 class SeqBfs extends ContextBfs {
-  override def context(graph: Graph, f: Int => Vertex => Unit): Context =
-    SeqContext(graph, f)
+  override def context(graph: Graph, f: Int => VertexId => Unit): BfsIteration =
+    SeqBfsIteration(graph, f)
 }

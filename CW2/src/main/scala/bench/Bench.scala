@@ -1,14 +1,14 @@
 package bench
 
-import bfs.Bfs
+import bfs.BfsRun
 import bfs.aop.PerformanceBfs
-import grpah.{CubeMapGraph, Graph, VertexId}
+import graph.{CubeMapGraph, Graph, VertexId}
 
 trait Bench {
   def name: String
   def runTimes: Int
   def cubeSideLength: Int
-  def bfs: Bfs with PerformanceBfs
+  def bfs: BfsRun with PerformanceBfs
 
   def run(): Unit = {
     val runner = bfs

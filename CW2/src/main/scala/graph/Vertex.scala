@@ -1,4 +1,4 @@
-package grpah
+package graph
 
 case class Vertex(
     id: VertexId,

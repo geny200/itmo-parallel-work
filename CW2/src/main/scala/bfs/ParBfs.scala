@@ -1,9 +1,9 @@
 package bfs
 
-import bfs.context.{Context, ParContext}
-import grpah.{Graph, Vertex}
+import bfs.iteration.{BfsIteration, ParBfsIteration}
+import graph.{Graph, VertexId}
 
 class ParBfs extends ContextBfs {
-  override def context(graph: Graph, f: Int => Vertex => Unit): Context =
-    ParContext(graph, f)
+  override def context(graph: Graph, f: Int => VertexId => Unit): BfsIteration =
+    ParBfsIteration(graph, f)
 }

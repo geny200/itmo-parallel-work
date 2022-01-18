@@ -1,13 +1,13 @@
 package bfs.aop
 
-import bfs.Bfs
-import grpah.{Graph, Vertex}
+import bfs.BfsRun
+import graph.{Graph, VertexId}
 
-trait LoggerBfs extends Bfs {
+trait LoggerBfs extends BfsRun {
   abstract override def start(
-      first: grpah.VertexId,
+      first: VertexId,
       graph: Graph,
-      f: Int => Vertex => Unit
+      f: Int => VertexId => Unit
   ): Unit = {
     println("Run bfs")
     val result: Unit = super.start(first, graph, f)
