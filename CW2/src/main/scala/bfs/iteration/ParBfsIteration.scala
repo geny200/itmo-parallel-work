@@ -4,13 +4,9 @@ import graph.{Graph, VertexId}
 
 import scala.annotation.tailrec
 import scala.collection.parallel.CollectionConverters.ImmutableSeqIsParallelizable
+import scala.collection.parallel.immutable.ParSeq
 
 case class ParBfsIteration(graph: Graph, f: Int => VertexId => Unit) extends BfsIteration {
-
-  case class Visited(visited: Vector[Boolean], frontier: List[VertexId]) {
-    def add(vertex: VertexId): Visited =
-      Visited(visited.updated(vertex.id, true), vertex :: frontier)
-  }
 
   @tailrec
   final override def iteration(
@@ -18,20 +14,20 @@ case class ParBfsIteration(graph: Graph, f: Int => VertexId => Unit) extends Bfs
       frontier: List[VertexId],
       length: Int
   ): Unit = {
-    val visit = frontier.par
-      .foldLeft(Visited(visited, List())) { (visitAcc: Visited, visitedId: VertexId) =>
-        graph
-          .vertex(visitedId)
-          .neighbors
-          .foldLeft(visitAcc)((acc: Visited, id: VertexId) =>
-            if (acc.visited(id.id)) acc
-            else acc.add(id)
-          )
-      }
+    val newFrontier: ParSeq[VertexId] =
+      frontier.par
+        .map(id => graph.vertex(id))
+        .flatMap(_.neighbors)
+        .distinct
+        .filterNot(v => visited(v.id))
+
+    val updatedVisit =
+      newFrontier
+        .foldLeft(visited)((visitedAcc, v) => visitedAcc.updated(v.id, true))
 
     frontier.par.foreach(f(length))
 
-    if (visit.frontier.nonEmpty)
-      iteration(visit.visited, visit.frontier, length + 1)
+    if (newFrontier.nonEmpty)
+      iteration(updatedVisit, newFrontier.toList, length + 1)
   }
 }
